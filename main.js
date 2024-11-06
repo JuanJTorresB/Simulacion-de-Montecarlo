@@ -18,19 +18,37 @@ const lanzarDardo = (LADO_TABLERO, CENTRO)=>{
        Y : getRandom(LADO_TABLERO)
    }
    dardo.distanciaCentro = Math.sqrt((((dardo.X - CENTRO.X)**2)+((dardo.Y - CENTRO.Y)**2)))
-   console.log(dardo)
+   if (dardo.distanciaCentro > 1){
+    return true
+   } else {
+    return false
+   }
 }
 
 
 const lanzarNDardos =(LADO_TABLERO, CENTRO, N)=>{
+    let cuentaAdentro = 0;
+    let cuentaFuera = 0;
    for (let index = N; index > 0; index--) {
-       lanzarDardo(LADO_TABLERO, CENTRO)
-   }
-   console.log("a")
+       if (lanzarDardo(LADO_TABLERO, CENTRO)){
+        cuentaFuera++
+       } else {
+        cuentaAdentro++
+       }
+   };
+   console.log("Dardos Fuera")
+   console.log(cuentaFuera)
+   console.log("Dardos Dentro")
+   console.log(cuentaAdentro)
+   console.log("Aproximacion de Pi")
+   console.log((4*cuentaAdentro)/N);
 }
 
 
-const botonPi = document.getElementById("Pi")
+const botonPi = document.getElementById("Pi");
+
+const inputD = document.getElementById("inputD");
 
 
-botonPi.addEventListener("click", lanzarNDardos (LADO_TABLERO, CENTRO, 100))
+
+botonPi.addEventListener("click", ()=>lanzarNDardos (LADO_TABLERO, CENTRO, inputD.value));
